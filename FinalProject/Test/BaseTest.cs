@@ -28,6 +28,8 @@ namespace FinalProject.Test
             verywellfitPaceCalcpg = new VerywellfitPaceCalcPage(driver);
             verywellfitRecipeNutritionCalcpg = new VerywellfitRecipeNutritionCalcPage(driver);
             verywellfitCalBurnDailyCalcpg = new VerywellfitCalBurnDailyCalcPage(driver);
+
+
         }
 
 
@@ -38,14 +40,15 @@ namespace FinalProject.Test
             {
                 FailScreenshot.TakeScreenshot(driver);
             }
-
         }
 
         [OneTimeTearDown]
 
-        public static void OneTimeTearDown()
+        public static void OneTimeTeardown()
         {
             driver.Quit();
         }
+
+
     }
 }

@@ -1,11 +1,13 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FinalProject.Page
@@ -35,31 +37,30 @@ namespace FinalProject.Page
         {
             if (Driver.Url != pageAddress)
             {
-                Driver.Url = pageAddress;
+               Driver.Url = pageAddress;
+
+                WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+                wait.Until(verywellfitCalBurnDailyCalcpg => Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Displayed);
+                Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
             }
             return this;
         }
 
-        public VerywellfitCalBurnDailyCalcPage CloseCookiePopUp()
-        {
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
-            wait.Until(verywellfitPaceCalcpg => Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Displayed);
-            Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
-            return this;
-        }
 
         public VerywellfitCalBurnDailyCalcPage ChooseMetricUnits()
         {
-            metricBtn.Click();
+
+            if (!metricBtn.Selected)
+                    metricBtn.Click();
             return this;
         }
 
         public VerywellfitCalBurnDailyCalcPage ChooseGender(string gender)
         {
-            if (gender.Equals("male"))
+            if (gender.Equals("male") && !maleRadioBtn.Selected)
                 maleRadioBtn.Click();
 
-            if (gender.Equals("female"))
+            if (gender.Equals("female") && !femaleRadioBtn.Selected)
                 femaleRadioBtn.Click();
 
             return this;
@@ -88,16 +89,16 @@ namespace FinalProject.Page
 
         public VerywellfitCalBurnDailyCalcPage ChooseActivity(string activity)
         {
-            if (activity.Equals("sedentary"))
+            if (activity.Equals("sedentary") && !sedActvRadioBtn.Selected)
                 sedActvRadioBtn.Click();
 
-            if (activity.Equals("light"))
+            if (activity.Equals("light") && !lightActvRadioBtn.Selected)
                 lightActvRadioBtn.Click();
 
-            if (activity.Equals("moderate"))
+            if (activity.Equals("moderate") && !modActvRadioBtn.Selected)
                 modActvRadioBtn.Click();
 
-            if (activity.Equals("very"))
+            if (activity.Equals("very")&& !veryActvRadioBtn.Selected)
                 veryActvRadioBtn.Click();
             return this;
         }
@@ -107,8 +108,6 @@ namespace FinalProject.Page
             calcBtn.Click();
             return this;
         }
-
-
 
 
 
@@ -124,5 +123,17 @@ namespace FinalProject.Page
             Assert.IsTrue(errorMsg.Text.Contains("Please enter a valid age"), $"Wrong text showed {errorMsg.Text}");
             return this;
         }
+
+        public VerywellfitCalBurnDailyCalcPage StartOverPage()
+        {
+            Driver.Navigate().Refresh();         
+            Thread.Sleep(3000);
+            return this;
+        }
+
+
+
+
+
     }
 }

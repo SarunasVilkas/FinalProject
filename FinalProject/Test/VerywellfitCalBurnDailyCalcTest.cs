@@ -25,7 +25,6 @@ namespace FinalProject.Test
         {
 
             verywellfitCalBurnDailyCalcpg.NavigateToHome()
-                .CloseCookiePopUp()
                 .ChooseMetricUnits()
                 .ChooseGender(gender)
                 .EnterAge(age)
@@ -33,7 +32,11 @@ namespace FinalProject.Test
                 .EnterWeight(weight)
                 .ChooseActivity(activity)
                 .Calculate()
-                .ValidateResult(expResult);
+                .ValidateResult(expResult)
+                .StartOverPage();
+                
+
+                
 
 
 
