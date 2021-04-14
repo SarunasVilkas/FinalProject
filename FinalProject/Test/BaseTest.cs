@@ -24,6 +24,7 @@ namespace FinalProject.Test
 
         public static void OneTimeSetup()
         {
+
             driver = CustomDriver.GetChromeDriver();
             verywellfitPaceCalcpg = new VerywellfitPaceCalcPage(driver);
             verywellfitRecipeNutritionCalcpg = new VerywellfitRecipeNutritionCalcPage(driver);

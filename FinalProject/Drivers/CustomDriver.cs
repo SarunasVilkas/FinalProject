@@ -32,6 +32,7 @@ namespace FinalProject.Drivers
 
         private static IWebDriver GetDriver(Browsers browserName)
         {
+
             IWebDriver webdriver = null;
 
             switch (browserName)
@@ -51,6 +52,7 @@ namespace FinalProject.Drivers
             }
             webdriver.Manage().Window.Maximize();
             webdriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
 
             return webdriver;
         }

@@ -126,8 +126,9 @@ namespace FinalProject.Page
 
         public VerywellfitCalBurnDailyCalcPage StartOverPage()
         {
-            Driver.Navigate().Refresh();         
-            Thread.Sleep(3000);
+            Driver.Navigate().Refresh();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0, 0)");
             return this;
         }
 
