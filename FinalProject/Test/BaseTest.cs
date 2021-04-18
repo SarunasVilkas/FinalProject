@@ -21,18 +21,13 @@ namespace FinalProject.Test
         public static VerywellfitCalBurnDailyCalcPage verywellfitCalBurnDailyCalcpg;
 
         [OneTimeSetUp]
-
         public static void OneTimeSetup()
         {
-
             driver = CustomDriver.GetChromeDriver();
             verywellfitPaceCalcpg = new VerywellfitPaceCalcPage(driver);
             verywellfitRecipeNutritionCalcpg = new VerywellfitRecipeNutritionCalcPage(driver);
             verywellfitCalBurnDailyCalcpg = new VerywellfitCalBurnDailyCalcPage(driver);
-
-
         }
-
 
         [TearDown]
         public static void TearDown()
@@ -44,12 +39,9 @@ namespace FinalProject.Test
         }
 
         [OneTimeTearDown]
-
         public static void OneTimeTeardown()
         {
-            driver.Quit();
+           driver.Quit();
         }
-
-
     }
 }

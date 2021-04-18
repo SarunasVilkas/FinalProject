@@ -14,7 +14,6 @@ namespace FinalProject.Test
 {
     public class VerywellfitCalBurnDailyCalcTest : BaseTest
     {
-
         [TestCase("male", "31", "173", "75", "light", "2312", TestName = "Male, Age: 31, Height: 173 cm, Weight: 75 kg Calories burned daily: 2312")]
         [TestCase("female", "24", "162", "50", "sedentary", "1478", TestName = "Female, Age: 24, Height: 162 cm, Weight: 50 kg Calories burned daily: 1478")]
         [TestCase("male", "50", "210", "120", "very", "3911", TestName = "Male, Age: 50, Height: 210 cm, Weight: 120 kg Calories burned daily: 3911")]
@@ -23,8 +22,8 @@ namespace FinalProject.Test
 
         public static void CalcCalories(string gender, string age, string height, string weight, string activity, string expResult)
         {
-
             verywellfitCalBurnDailyCalcpg.NavigateToHome()
+                .CloseCookiePopUp()
                 .ChooseMetricUnits()
                 .ChooseGender(gender)
                 .EnterAge(age)
@@ -34,15 +33,6 @@ namespace FinalProject.Test
                 .Calculate()
                 .ValidateResult(expResult)
                 .StartOverPage();
-                
-
-                
-
-
-
         }
-
-
-
     }
 }

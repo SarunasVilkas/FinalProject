@@ -17,22 +17,16 @@ namespace FinalProject.Page
         private const string pageAddress = "https://www.verywellfit.com/walking-and-running-pace-and-speed-calculator-3952317";
 
         private SelectElement unitsDropDown => new SelectElement(Driver.FindElement(By.CssSelector(".distance-unit select")));
-        IWebElement distanceInput => Driver.FindElement(By.CssSelector(".distance > .tool-input"));
-        IWebElement timeHoursInput => Driver.FindElement(By.Id("timeHours"));
-        IWebElement timeMinutesInput => Driver.FindElement(By.Id("timeMinutes"));
-        IWebElement timeSecondsInput => Driver.FindElement(By.Id("timeSeconds"));
+        private IWebElement distanceInput => Driver.FindElement(By.CssSelector(".distance > .tool-input"));
+        private IWebElement timeHoursInput => Driver.FindElement(By.Id("timeHours"));
+        private IWebElement timeMinutesInput => Driver.FindElement(By.Id("timeMinutes"));
+        private IWebElement timeSecondsInput => Driver.FindElement(By.Id("timeSeconds"));
         private SelectElement paceUnitsDropDown => new SelectElement(Driver.FindElement(By.Name("pace-unit")));
-        IWebElement calculatePaceBtn => Driver.FindElement(By.CssSelector(".btn-padded:nth-child(1)"));
-        IWebElement paceMin => Driver.FindElement(By.Id("paceMinutes"));
-        IWebElement paceSec => Driver.FindElement(By.Id("paceSeconds"));
-
-
-
+        private IWebElement calculatePaceBtn => Driver.FindElement(By.CssSelector(".btn-padded:nth-child(1)"));
+        private IWebElement paceMin => Driver.FindElement(By.Id("paceMinutes"));
+        private IWebElement paceSec => Driver.FindElement(By.Id("paceSeconds"));
 
         public VerywellfitPaceCalcPage(IWebDriver webdriver) : base(webdriver) { }
-
-
-
 
         public VerywellfitPaceCalcPage NavigateToHome()
         {
@@ -45,9 +39,12 @@ namespace FinalProject.Page
 
         public VerywellfitPaceCalcPage CloseCookiePopUp()
         {
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
-            wait.Until(verywellfitPaceCalcpg => Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Displayed);
-            Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
+            if (Driver.Manage().Cookies.GetCookieNamed("OptanonAlertBoxClosed") == null)
+            {
+                WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+                wait.Until(verywellfitPaceCalcpg => Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Displayed);
+                Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
+            }
             return this;
         }
 
@@ -91,17 +88,9 @@ namespace FinalProject.Page
 
         public VerywellfitPaceCalcPage VerifyResult(string expMin, string expSec)
         {
-
             Assert.AreEqual(expMin, paceMin.GetAttribute("value"), "Pace time Minutes value are incorrect");
             Assert.AreEqual(expSec, paceSec.GetAttribute("value"), "Pace time Seconds value are incorrect");
             return this;
-
         }
-
-
-
-
-
-
     }
 }

@@ -36,7 +36,5 @@ namespace FinalProject.Test
                 .GetAnlyzed()
                 .VerifyResult("149");
         }
-
-
     }
 }

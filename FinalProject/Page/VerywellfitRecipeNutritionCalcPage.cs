@@ -16,12 +16,10 @@ namespace FinalProject.Page
     {
         private const string pageAddress = "https://www.verywellfit.com/recipe-nutrition-analyzer-4157076";
 
-        IWebElement textBox => Driver.FindElement(By.XPath("//textarea"));
+        private IWebElement textBox => Driver.FindElement(By.XPath("//textarea"));
         private SelectElement servingsDropDown => new SelectElement(Driver.FindElement(By.XPath("//select")));
-        IWebElement analyzeBtn => Driver.FindElement(By.CssSelector(".btn-padded"));
-        IWebElement resultTxt => Driver.FindElement(By.CssSelector(".results-heading"));
-
-
+        private IWebElement analyzeBtn => Driver.FindElement(By.CssSelector(".btn-padded"));
+        private IWebElement resultTxt => Driver.FindElement(By.CssSelector(".results-heading"));
 
         public VerywellfitRecipeNutritionCalcPage(IWebDriver webdriver) : base(webdriver) { }
 
@@ -36,12 +34,14 @@ namespace FinalProject.Page
 
         public VerywellfitRecipeNutritionCalcPage CloseCookiePopUp()
         {
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
-            wait.Until(verywellfitPaceCalcpg => Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Displayed);
-            Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
+            if (Driver.Manage().Cookies.GetCookieNamed("OptanonAlertBoxClosed") == null)
+            {
+                WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+                wait.Until(verywellfitPaceCalcpg => Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Displayed);
+                Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
+            }
             return this;
         }
-
 
         public VerywellfitRecipeNutritionCalcPage AddTextToTextBox(string first, string second, string third)
         {
@@ -80,7 +80,5 @@ namespace FinalProject.Page
             Assert.IsTrue(resultTxt.Text.Contains(exp), $"Result is wrong. It shold shave been {exp} calories, but we got {resultTxt.Text}");
             return this;
         }
-
-
     }
 }

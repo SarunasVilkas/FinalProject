@@ -16,20 +16,20 @@ namespace FinalProject.Page
     {
         private const string pageAddress = "https://www.verywellfit.com/how-many-calories-do-i-burn-every-day-3495464";
 
-        IWebElement metricBtn => Driver.FindElement(By.CssSelector("#radio-toggle_2-2 > .btn:nth-child(4)"));
-        IWebElement maleRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_7-2 .label-inner"));
-        IWebElement femaleRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_8-2 .label-inner"));
-        IWebElement ageTxt => Driver.FindElement(By.Id("tool-input_14-2"));
-        IWebElement heightTxt => Driver.FindElement(By.Id("tool-input_16-2"));
-        IWebElement weightTxt => Driver.FindElement(By.Id("tool-input_17-2"));
-        IWebElement sedActvRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_9-2 .checkbox-text"));
-        IWebElement lightActvRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_10-2 .checkbox-text"));
-        IWebElement modActvRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_11-2 .checkbox-text"));
-        IWebElement veryActvRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_12-2 .checkbox-text"));
-        IWebElement calcBtn => Driver.FindElement(By.CssSelector(".btn-padded"));
-        IWebElement startOverBtn => Driver.FindElement(By.CssSelector(".btn-start-over"));
-        IWebElement result => Driver.FindElement(By.CssSelector("#bmr-results_2-2 > h2"));
-        IWebElement errorMsg => Driver.FindElement(By.Id("alert_5-2"));
+        private IWebElement metricBtn => Driver.FindElement(By.CssSelector("#radio-toggle_2-2 > .btn:nth-child(4)"));
+        private IWebElement maleRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_7-2 .label-inner"));
+        private IWebElement femaleRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_8-2 .label-inner"));
+        private IWebElement ageTxt => Driver.FindElement(By.Id("tool-input_14-2"));
+        private IWebElement heightTxt => Driver.FindElement(By.Id("tool-input_16-2"));
+        private IWebElement weightTxt => Driver.FindElement(By.Id("tool-input_17-2"));
+        private IWebElement sedActvRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_9-2 .checkbox-text"));
+        private IWebElement lightActvRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_10-2 .checkbox-text"));
+        private IWebElement modActvRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_11-2 .checkbox-text"));
+        private IWebElement veryActvRadioBtn => Driver.FindElement(By.CssSelector("#radio-button_12-2 .checkbox-text"));
+        private IWebElement calcBtn => Driver.FindElement(By.CssSelector(".btn-padded"));
+        private IWebElement startOverBtn => Driver.FindElement(By.CssSelector(".btn-start-over"));
+        private IWebElement result => Driver.FindElement(By.CssSelector("#bmr-results_2-2 > h2"));
+        private IWebElement errorMsg => Driver.FindElement(By.Id("alert_5-2"));
 
         public VerywellfitCalBurnDailyCalcPage(IWebDriver webdriver) : base(webdriver) { }
 
@@ -38,7 +38,13 @@ namespace FinalProject.Page
             if (Driver.Url != pageAddress)
             {
                Driver.Url = pageAddress;
-
+            }
+            return this;
+        }
+        public VerywellfitCalBurnDailyCalcPage CloseCookiePopUp()
+        {
+            if (Driver.Manage().Cookies.GetCookieNamed("OptanonAlertBoxClosed") == null)
+            {
                 WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
                 wait.Until(verywellfitCalBurnDailyCalcpg => Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Displayed);
                 Driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
@@ -46,10 +52,8 @@ namespace FinalProject.Page
             return this;
         }
 
-
         public VerywellfitCalBurnDailyCalcPage ChooseMetricUnits()
         {
-
             if (!metricBtn.Selected)
                     metricBtn.Click();
             return this;
@@ -59,10 +63,8 @@ namespace FinalProject.Page
         {
             if (gender.Equals("male") && !maleRadioBtn.Selected)
                 maleRadioBtn.Click();
-
             if (gender.Equals("female") && !femaleRadioBtn.Selected)
                 femaleRadioBtn.Click();
-
             return this;
         }
 

@@ -14,7 +14,6 @@ namespace FinalProject.Test
 {
     public class VerywellfitPaceCalcTest : BaseTest
     {
-
         [Test]
         public static void CheckPaceFor10kmIn1Hr()
         {
@@ -40,6 +39,5 @@ namespace FinalProject.Test
             .Submit()
             .VerifyResult("05", "30");
         }
-
     }
 }
